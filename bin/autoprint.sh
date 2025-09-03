@@ -11,7 +11,7 @@ fi
 
 if [ -z "$PRINTER" ]; then
   # Use default printer
-  lp "$FILE"
+  lp -o fit-to-page "$FILE"
 else
-  lp -d "$PRINTER" "$FILE"
+  lp -d "$PRINTER" -o fit-to-page "$FILE"
 fi
