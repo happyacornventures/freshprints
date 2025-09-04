@@ -1,3 +1,32 @@
+fn print_file(file: &str, printer: Option<&str>) {
+  use std::process::Command;
+
+  let mut cmd = Command::new("lp");
+  cmd.arg("-o")
+    .arg("fit-to-page") // Set to fit-to-page mode
+    .arg(file);
+
+  if let Some(printer_name) = printer {
+    cmd.arg("-d").arg(printer_name);
+  }
+
+  match cmd.output() {
+    Ok(output) => {
+      if output.status.success() {
+        println!("Print job submitted successfully.");
+      } else {
+        eprintln!(
+          "Failed to submit print job: {}",
+          String::from_utf8_lossy(&output.stderr)
+        );
+      }
+    }
+    Err(e) => {
+      eprintln!("Error executing lp command: {}", e);
+    }
+  }
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
   tauri::Builder::default()
