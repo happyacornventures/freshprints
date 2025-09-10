@@ -1,11 +1,15 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 
 export default function Index() {
+  const handlePress = () => {
+    console.log("File selection pressed");
+  };
+
   return (
-    <View style={styles.dropzone}>
+    <Pressable style={styles.dropzone} onPress={handlePress}>
       <Text style={styles.dropText}>Drop a document to get started</Text>
       <Text style={styles.subText}>or click to browse files</Text>
-    </View>
+    </Pressable>
   );
 }
 
