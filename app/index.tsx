@@ -2,7 +2,10 @@ import { Pressable, StyleSheet, Text } from "react-native";
 
 export default function Index() {
   const handlePress = () => {
-    console.log("File selection pressed");
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.onchange = (e) => console.log('Selected:', (e.target as HTMLInputElement).files?.[0]);
+    input.click();
   };
 
   return (
