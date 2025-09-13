@@ -29,8 +29,8 @@ fn print_file(file: &str, printer: Option<&str>) {
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-  print_file("../weather_chart.pdf", None);
   tauri::Builder::default()
+    .plugin(tauri_plugin_dialog::init())
     .setup(|app| {
       if cfg!(debug_assertions) {
         app.handle().plugin(
