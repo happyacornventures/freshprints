@@ -1,11 +1,23 @@
+import { open } from '@tauri-apps/plugin-dialog';
 import { Pressable, StyleSheet, Text } from "react-native";
 
 export default function Index() {
-  const handlePress = () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.onchange = (e) => console.log('Selected:', (e.target as HTMLInputElement).files?.[0]);
-    input.click();
+  const handlePress = async () => {
+    try {
+      const selected = await open({
+        multiple: false,
+        filters: [{
+          name: 'Documents',
+          extensions: ['pdf', 'doc', 'docx', 'txt', 'png', 'jpg', 'jpeg']
+        }]
+      });
+
+      if (selected) {
+        console.log('Selected file path:', selected);
+      }
+    } catch (error) {
+      console.error('Error selecting file:', error);
+    }
   };
 
   return (
