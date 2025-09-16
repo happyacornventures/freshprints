@@ -1,7 +1,10 @@
 import { open } from '@tauri-apps/plugin-dialog';
 import { Pressable, StyleSheet, Text } from "react-native";
+import { useState } from "react";
 
 export default function Index() {
+  const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
+
   const handlePress = async () => {
     try {
       const selected = await open({
@@ -14,6 +17,7 @@ export default function Index() {
 
       if (selected) {
         console.log('Selected file path:', selected);
+        setSelectedFiles(prev => [...prev, selected]);
       }
     } catch (error) {
       console.error('Error selecting file:', error);
