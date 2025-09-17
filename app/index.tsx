@@ -1,5 +1,5 @@
 import { open } from '@tauri-apps/plugin-dialog';
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet, Text, View, FlatList } from "react-native";
 import { useState } from "react";
 
 export default function Index() {
@@ -24,15 +24,40 @@ export default function Index() {
     }
   };
 
+  const renderFileItem = ({ item }: { item: string }) => (
+    <View style={styles.fileItem}>
+      <Text style={styles.fileName}>{item.split('/').pop()}</Text>
+      <Text style={styles.filePath}>{item}</Text>
+    </View>
+  );
+
   return (
-    <Pressable style={styles.dropzone} onPress={handlePress}>
-      <Text style={styles.dropText}>Drop a document to get started</Text>
-      <Text style={styles.subText}>or click to browse files</Text>
-    </Pressable>
+    <View style={styles.container}>
+      <Pressable style={styles.dropzone} onPress={handlePress}>
+        <Text style={styles.dropText}>Drop a document to get started</Text>
+        <Text style={styles.subText}>or click to browse files</Text>
+      </Pressable>
+      
+      {selectedFiles.length > 0 && (
+        <View style={styles.fileListContainer}>
+          <Text style={styles.fileListTitle}>Selected Files ({selectedFiles.length})</Text>
+          <FlatList
+            data={selectedFiles}
+            renderItem={renderFileItem}
+            keyExtractor={(item, index) => `${item}-${index}`}
+            style={styles.fileList}
+          />
+        </View>
+      )}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+  },
   dropzone: {
     flex: 1,
     justifyContent: "center",
@@ -41,8 +66,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#dee2e6",
     borderStyle: "dashed",
-    margin: 20,
     borderRadius: 8,
+    marginBottom: 20,
   },
   dropText: {
     fontSize: 24,
@@ -52,6 +77,36 @@ const styles = StyleSheet.create({
   },
   subText: {
     fontSize: 16,
+    color: "#6c757d",
+  },
+  fileListContainer: {
+    maxHeight: 300,
+  },
+  fileListTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#495057",
+    marginBottom: 10,
+  },
+  fileList: {
+    backgroundColor: "#ffffff",
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#dee2e6",
+  },
+  fileItem: {
+    padding: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f1f3f4",
+  },
+  fileName: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#212529",
+    marginBottom: 4,
+  },
+  filePath: {
+    fontSize: 12,
     color: "#6c757d",
   },
 });
