@@ -28,6 +28,7 @@ export default function Index() {
     <View style={styles.fileItem}>
       <Text style={styles.fileName}>{item.split('/').pop()}</Text>
       <Text style={styles.filePath}>{item}</Text>
+      <Text style={styles.frequency}>Print Frequency: Daily</Text>
     </View>
   );
 
@@ -108,5 +109,10 @@ const styles = StyleSheet.create({
   filePath: {
     fontSize: 12,
     color: "#6c757d",
+  },
+  frequency: {
+    fontSize: 12,
+    color: "#495057",
+    marginTop: 4,
   },
 });
