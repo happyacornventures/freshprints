@@ -1,9 +1,9 @@
 import { open } from '@tauri-apps/plugin-dialog';
-import { Pressable, StyleSheet, Text, View, FlatList } from "react-native";
 import { useState } from "react";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Index() {
-  const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<{ path: string }[]>([]);
 
   const handlePress = async () => {
     try {
@@ -17,7 +17,7 @@ export default function Index() {
 
       if (selected) {
         console.log('Selected file path:', selected);
-        setSelectedFiles(prev => [...prev, selected]);
+        setSelectedFiles(prev => [...prev, {path: selected as string}]);
       }
     } catch (error) {
       console.error('Error selecting file:', error);
@@ -43,7 +43,7 @@ export default function Index() {
         <View style={styles.fileListContainer}>
           <Text style={styles.fileListTitle}>Selected Files ({selectedFiles.length})</Text>
           <FlatList
-            data={selectedFiles}
+            data={selectedFiles.map(file => file.path)}
             renderItem={renderFileItem}
             keyExtractor={(item, index) => `${item}-${index}`}
             style={styles.fileList}
