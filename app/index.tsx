@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Index() {
-  const [selectedFiles, setSelectedFiles] = useState<{ path: string }[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<{ path: string, frequency: string }[]>([]);
 
   const handlePress = async () => {
     try {
@@ -17,7 +17,7 @@ export default function Index() {
 
       if (selected) {
         console.log('Selected file path:', selected);
-        setSelectedFiles(prev => [...prev, {path: selected as string}]);
+        setSelectedFiles(prev => [...prev, {path: selected as string, frequency: 'Daily'}]);
       }
     } catch (error) {
       console.error('Error selecting file:', error);
