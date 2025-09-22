@@ -43,9 +43,9 @@ export default function Index() {
         <View style={styles.fileListContainer}>
           <Text style={styles.fileListTitle}>Selected Files ({selectedFiles.length})</Text>
           <FlatList
-            data={selectedFiles.map(file => file.path)}
+            data={selectedFiles}
             renderItem={renderFileItem}
-            keyExtractor={(item, index) => `${item}-${index}`}
+            keyExtractor={(item, index) => `${item.path}-${index}`}
             style={styles.fileList}
           />
         </View>
