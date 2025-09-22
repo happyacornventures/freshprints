@@ -24,11 +24,11 @@ export default function Index() {
     }
   };
 
-  const renderFileItem = ({ item }: { item: string }) => (
+  const renderFileItem = ({ item }: { item: { path: string, frequency: string } }) => (
     <View style={styles.fileItem}>
-      <Text style={styles.fileName}>{item.split('/').pop()}</Text>
-      <Text style={styles.filePath}>{item}</Text>
-      <Text style={styles.frequency}>Print Frequency: Daily</Text>
+      <Text style={styles.fileName}>{item.path.split('/').pop()}</Text>
+      <Text style={styles.filePath}>{item.path}</Text>
+      <Text style={styles.frequency}>Print Frequency: {item.frequency}</Text>
     </View>
   );
 
