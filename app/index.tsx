@@ -1,3 +1,4 @@
+import { Picker } from '@react-native-picker/picker';
 import { open } from '@tauri-apps/plugin-dialog';
 import { useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
@@ -28,7 +29,14 @@ export default function Index() {
     <View style={styles.fileItem}>
       <Text style={styles.fileName}>{item.path.split('/').pop()}</Text>
       <Text style={styles.filePath}>{item.path}</Text>
-      <Text style={styles.frequency}>Print Frequency: {item.frequency}</Text>
+      <Text style={styles.frequency}>Print Frequency:
+      <Picker
+        selectedValue={item.frequency}
+        style={styles.frequencyPicker}
+      >
+        <Picker.Item label={item.frequency} value={item.frequency} />
+      </Picker>
+      </Text>
     </View>
   );
 
@@ -114,5 +122,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#495057",
     marginTop: 4,
+  },
+  frequencyPicker: {
+    marginTop: 4,
+    height: 40,
+    width: 150,
   },
 });
