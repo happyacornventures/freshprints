@@ -34,7 +34,10 @@ export default function Index() {
         selectedValue={item.frequency}
         style={styles.frequencyPicker}
       >
-        <Picker.Item label={item.frequency} value={item.frequency} />
+        <Picker.Item label="Daily" value="Daily" />
+        <Picker.Item label="Weekly" value="Weekly" />
+        <Picker.Item label="Monthly" value="Monthly" />
+        <Picker.Item label="One-time" value="Annually" />
       </Picker>
       </Text>
     </View>
