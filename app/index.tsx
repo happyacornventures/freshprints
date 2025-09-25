@@ -3,6 +3,8 @@ import { open } from '@tauri-apps/plugin-dialog';
 import { useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 
+const cadence = ["Daily", "Weekly", "Monthly", "Annually"];
+
 export default function Index() {
   const [selectedFiles, setSelectedFiles] = useState<{ path: string, frequency: string }[]>([]);
 
@@ -34,10 +36,9 @@ export default function Index() {
         selectedValue={item.frequency}
         style={styles.frequencyPicker}
       >
-        <Picker.Item label="Daily" value="Daily" />
-        <Picker.Item label="Weekly" value="Weekly" />
-        <Picker.Item label="Monthly" value="Monthly" />
-        <Picker.Item label="One-time" value="Annually" />
+        {cadence.map((freq) => (
+          <Picker.Item label={freq} value={freq} key={freq} />
+        ))}
       </Picker>
       </Text>
     </View>
