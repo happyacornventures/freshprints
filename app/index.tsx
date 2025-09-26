@@ -35,6 +35,9 @@ export default function Index() {
       <Picker
         selectedValue={item.frequency}
         style={styles.frequencyPicker}
+        onValueChange={(value) => {
+          setSelectedFiles(prev => prev.map(file => file.path === item.path? {...file, frequency: value} : file));
+        }}
       >
         {cadence.map((freq) => (
           <Picker.Item label={freq} value={freq} key={freq} />
