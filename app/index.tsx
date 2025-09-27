@@ -29,21 +29,23 @@ export default function Index() {
 
   const renderFileItem = ({ item }: { item: { path: string, frequency: string } }) => (
     <View style={styles.fileItem}>
-      <Text style={styles.fileName}>{item.path.split('/').pop()}</Text>
-      <Text style={styles.filePath}>{item.path}</Text>
-      <Text style={styles.frequency}>Print Frequency:
-      <Picker
-        selectedValue={item.frequency}
-        style={styles.frequencyPicker}
-        onValueChange={(value) => {
-          setSelectedFiles(prev => prev.map(file => file.path === item.path? {...file, frequency: value} : file));
-        }}
-      >
-        {cadence.map((freq) => (
-          <Picker.Item label={freq} value={freq} key={freq} />
-        ))}
-      </Picker>
-      </Text>
+      <View style={styles.fileInfo}>
+        <Text style={styles.fileName}>{item.path.split('/').pop()}</Text>
+        <Text style={styles.filePath}>{item.path}</Text>
+      </View>
+      <View style={styles.frequencyContainer}>
+        <Picker
+          selectedValue={item.frequency}
+          style={styles.frequencyPicker}
+          onValueChange={(value) => {
+            setSelectedFiles(prev => prev.map(file => file.path === item.path? {...file, frequency: value} : file));
+          }}
+        >
+          {cadence.map((freq) => (
+            <Picker.Item label={freq} value={freq} key={freq} />
+          ))}
+        </Picker>
+      </View>
     </View>
   );
 
@@ -114,6 +116,13 @@ const styles = StyleSheet.create({
     padding: 12,
     borderBottomWidth: 1,
     borderBottomColor: "#f1f3f4",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  fileInfo: {
+    flex: 1,
+    marginRight: 10,
   },
   fileName: {
     fontSize: 16,
@@ -125,14 +134,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#6c757d",
   },
-  frequency: {
-    fontSize: 12,
-    color: "#495057",
-    marginTop: 4,
+  frequencyContainer: {
+    minWidth: 100,
   },
   frequencyPicker: {
-    marginTop: 4,
     height: 40,
-    width: 150,
+    width: 100,
   },
 });
