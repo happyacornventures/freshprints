@@ -1,3 +1,5 @@
+use tauri::{WindowEvent, Manager};
+
 fn print_file(file: &str, printer: Option<&str>) {
   use std::process::Command;
 
@@ -27,8 +29,6 @@ fn print_file(file: &str, printer: Option<&str>) {
   }
 }
 
-use tauri::WindowEvent;
-
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -45,7 +45,7 @@ pub fn run() {
         })
         .on_window_event(|window, event| {
             if let WindowEvent::CloseRequested { api, .. } = event {
-                window.hide().unwrap();
+                window.minimize().unwrap();
                 api.prevent_close();
             }
         })
