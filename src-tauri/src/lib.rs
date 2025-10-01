@@ -1,4 +1,4 @@
-use tauri::{WindowEvent, Manager};
+use tauri::{WindowEvent, Manager, tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent}};
 
 fn print_file(file: &str, printer: Option<&str>) {
   use std::process::Command;
